@@ -1,0 +1,41 @@
+{
+  "title": "Getting Started with Spring Boot on Kubernetes",
+  "description": "Starting with just a command line and a Kubernetes cluster, you can see how to create, build and run a simple Spring Boot application.",
+  "difficulty": "Beginner",
+  "time": "20 minutes",
+  "details": {
+    "steps": [
+      {
+        "title": "Create a Spring Boot Application",
+        "text": "step1.md"
+      },
+      {
+        "title": "Containerize the Application",
+        "text": "step2.md"
+      },
+      {
+        "title": "Install and Run Kubernetes",
+        "text": "step3.md"
+      },
+      {
+        "title": "Deploy the Application to Kubernetes",
+        "text": "step4.md"
+      }
+    ],
+    "intro": {
+      "text": "intro.md",
+      "code": "setup.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "environment": {
+    "uilayout": "terminal",
+    "showdashboard": true,
+    "dashboards": [{ "name": "App", "port": 8080 }]
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
