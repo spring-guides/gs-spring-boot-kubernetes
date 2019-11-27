@@ -1,0 +1,44 @@
+{
+  "title": "Kubernetes Probes with Spring Boot",
+  "description": "Add liveness and readiness probes to an existing Spring Boot application.",
+  "difficulty": "Beginner",
+  "time": "20 minutes",
+  "details": {
+    "steps": [
+      {
+        "title": "Add Actuators to a Spring Boot Application",
+        "text": "step1.md"
+      },
+      {
+        "title": "Configure Kubernetes Probes",
+        "text": "step2.md",
+        "courseData": "setup.sh"
+      }
+    ],
+    "intro": {
+      "text": "intro.md",
+      "code": "env.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {"file": "../complete/Dockerfile", "target": "~/"},
+        {"file": "../complete/pom.xml", "target": "~/"},
+        {"file": "../complete/src", "target": "~/src"}
+      ]
+    }
+  },
+  "files": [
+    "Dockerfile", "pom.xml", "src/main/java/com/example/demo/DemoApplication.java"
+  ],
+  "environment": {
+    "uilayout": "editor-terminal",
+    "showdashboard": true,
+    "dashboards": [{ "name": "App", "port": 8080 }]
+  },
+  "backend": {
+    "imageid": "kubernetes"
+  }
+}

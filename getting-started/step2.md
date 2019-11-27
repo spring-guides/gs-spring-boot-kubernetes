@@ -1,7 +1,6 @@
 Create a `Dockerfile` by running this command:
 
-<pre><code class="execute">
-cat > Dockerfile << EOF
+<pre><code class="execute">cat > Dockerfile << EOF
 FROM openjdk:8-jdk-alpine AS builder
 WORKDIR target/dependency
 ARG APPJAR=target/*.jar
