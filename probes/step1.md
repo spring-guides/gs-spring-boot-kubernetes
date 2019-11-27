@@ -5,7 +5,7 @@ Kubernetes has 3 types of probe. The most important are liveness and readiness. 
 
 If a readiness probe fails then the app is taken out of the load balancer rotation, and no more traffic is sent to it, until it passes again. It can continue to pass liveness checks the whole time it is out of rotation.
 
-Open the `demo/pom.xml` in the editor and add the actuator dependency:
+Open the `demo/pom.xml`{{open}} in the editor and add the actuator dependency:
 
 <pre><code class="copy">&lt;dependency>
   &lt;groupId>org.springframework.boot&lt;/groupId>
@@ -13,7 +13,7 @@ Open the `demo/pom.xml` in the editor and add the actuator dependency:
 &lt;/dependency>
 </code></pre>
 
-In the terminal, pop into the `demo` director with `cd demo`{{execute}}. Build the app `./mvnw package`{{execute}}. Then create a new `Dockerfile`:
+In the terminal, pop into the `demo` director with `cd demo`{{execute}}. Build the app `./mvnw package`{{execute}} and create a new `Dockerfile`:
 
 <pre><code class="execute">cat > Dockerfile << EOF
 FROM openjdk:8-jdk-alpine AS builder
@@ -32,11 +32,11 @@ ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.demo.DemoApplication"]
 EOF
 </code></pre>
 
-and build the container:
+Build the container:
 
 `docker build -t localhost/springguides/demo .`{{execute}}
 
-You can test that the container is working:
+> NOTE: There is a Docker (v2) registry running on `localhost`  port 80, just to make the tutorial work smoothly, and so you don't have to authenticate to Dockerhub. If you prefer to use Dockerhub just remove `localhost/` from the container labels (or insert another registry host instead of `localhost`).You can test that the container is working:
 
 `docker run -p 8080:8080 localhost/springguides/demo`{{execute}}
 
@@ -72,5 +72,3 @@ Once you are sure it is working you can kill the container:
 And push it to the local registry:
 
 `docker push localhost/springguides/demo`{{execute}}
-
-> NOTE: There is a Docker (v2) registry running on `localhost`  port 80, just to make the tutorial work smoothly, and so you don't have to authenticate to Dockerhub. If you prefer to use Dockerhub just remove `localhost/` from the container labels (or insert another registry host instead of `localhost`).
