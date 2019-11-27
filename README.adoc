@@ -4,7 +4,7 @@
 :icons: font
 :source-highlighter: prettify
 
-This guide walks you through the process of deploying a Spring Boot application on https://kubernetes.io[Kubernetes]. There are many choices of how to do things with Spring Boot and Kubernetes -- the intention with this guide is to get you up and running as quickly as possible, not to discuss all the alternatives or .
+This guide walks you through the process of deploying a Spring Boot application on https://kubernetes.io[Kubernetes]. There are many choices of how to do things with Spring Boot and Kubernetes -- the intention with this guide is to get you up and running as quickly as possible, not to discuss all the alternatives or get you into production.
 
 [NOTE]
 ====
