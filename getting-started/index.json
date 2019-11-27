@@ -14,17 +14,14 @@
         "text": "step2.md"
       },
       {
-        "title": "Install and Run Kubernetes",
-        "text": "step3.md"
-      },
-      {
         "title": "Deploy the Application to Kubernetes",
-        "text": "step4.md"
+        "text": "step3.md"
       }
     ],
     "intro": {
       "text": "intro.md",
-      "code": "setup.sh"
+      "courseData": "setup.sh",
+      "code": "env.sh"
     },
     "finish": {
       "text": "finish.md"
@@ -36,6 +33,6 @@
     "dashboards": [{ "name": "App", "port": 8080 }]
   },
   "backend": {
-    "imageid": "ubuntu"
+    "imageid": "kubernetes"
   }
 }
