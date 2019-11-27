@@ -1,0 +1,33 @@
+{
+  "title": "Install Kubernetes",
+  "description": "Install Kubernetes with Kind and run a simple Spring Boot application. This tutorial is not a pre-requisite for the other content here, but it might help you to get started locally, once you leave the Katacoda environment.",
+  "difficulty": "Beginner",
+  "time": "20 minutes",
+  "details": {
+    "steps": [
+      {
+        "title": "Install and Run Kubernetes",
+        "text": "step1.md"
+      },
+      {
+        "title": "Deploy an Application to Kubernetes",
+        "text": "step2.md"
+      }
+    ],
+    "intro": {
+      "text": "intro.md",
+      "code": "setup.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "environment": {
+    "uilayout": "terminal",
+    "showdashboard": true,
+    "dashboards": [{ "name": "App", "port": 8080 }]
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}

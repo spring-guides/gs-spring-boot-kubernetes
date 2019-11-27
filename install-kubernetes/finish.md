@@ -1,0 +1,1 @@
+Well done! You built an app, containerized it and pushed it to Kubernetes. Here are the links again to the [Spring guides](https://spring.io/guides) and [Spring project homepages](https://spring.io/projects). And the [Spring Boot Docker](https://spring.io/guides/top/spring-boot-docker) covering some more of the containerization options.
