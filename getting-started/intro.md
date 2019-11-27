@@ -11,3 +11,5 @@ We don't cover all the features of Spring and Spring Boot. For that you could go
 We also don't cover all the options available for building containers. There is a [Spring Boot topical guide](https://spring.io/guides/top/spring-boot-docker) covering some of those options in more detail.
 
 When it comes to deploying the application to Kubernetes, there are far too many options to cover them all in one tutorial. We can look at one or two, but the emphasis will be on getting something working as quickly as possible, not on how to deploy to a production cluster.
+
+Source code for this guide is in [Github](https://github.com/spring-guides/gs-spring-boot-kubernetes/tree/master/getting-started). It is deployed in [Katacoda](https://www.katacoda.com/springguides/scenarios/getting-started) where you can run the code interactively in your browser.
