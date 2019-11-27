@@ -9,8 +9,7 @@ kubectl create deployment demo --image localhost/springguides/demo --dry-run -o 
 
 Let's add some configuration to the deployment for probes, as would be typical for an app using Spring Boot actuators:
 
-<pre><code class="execute">
-$ cat >> deployment.yaml <<EOF
+<pre><code class="execute">cat >> deployment.yaml &lt;&lt;EOF
         livenessProbe:
           httpGet:
             path: /actuator/info
@@ -25,3 +24,35 @@ $ cat >> deployment.yaml <<EOF
           periodSeconds: 10
 EOF
 </code></pre>
+
+Then deploy to Kubernetes `kubectl apply -f deployment.yaml`{{execute}} and check the app is running `kubectl get all`{{execute}}:
+
+```
+NAME                        READY   STATUS    RESTARTS   AGE
+pod/demo-7b4cfc5767-24qgr   0/1     Running   0          6s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/demo         ClusterIP   10.97.182.253   <none>        8080/TCP   7s
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP    9m22s
+
+NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/demo   0/1     1            0           7s
+
+NAME                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/demo-7b4cfc5767   1         1         0       7s
+master
+```
+
+Now we can connect to the application. First create an SSH tunnel:
+
+`kubectl port-forward svc/demo 8080:8080`{{execute T1}}
+
+and then you can verify that the app is running:
+
+`curl localhost:8080/actuator/health`{{execute T2}}
+
+```
+{"status":"UP"}
+```
+
+That it! You have an application with probes (if the probes fail the app will not be running).
