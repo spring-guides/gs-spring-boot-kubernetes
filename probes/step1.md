@@ -72,3 +72,5 @@ Once you are sure it is working you can kill the container:
 And push it to the local registry:
 
 `docker push localhost/springguides/demo`{{execute}}
+
+Great! Now you have a container image in a local Docker registry. You are ready to deploy it to Kubernetes.

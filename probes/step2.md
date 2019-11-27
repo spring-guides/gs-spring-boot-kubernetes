@@ -25,7 +25,15 @@ Let's add some configuration to the deployment for probes, as would be typical f
 EOF
 </code></pre>
 
-Then deploy to Kubernetes `kubectl apply -f deployment.yaml`{{execute}} and check the app is running `kubectl get all`{{execute}}:
+Then deploy to Kubernetes
+
+`kubectl apply -f deployment.yaml`{{execute}}
+
+and check the app is running 
+
+`kubectl get all`{{execute}}
+
+Sample output:
 
 ```
 NAME                        READY   STATUS    RESTARTS   AGE
