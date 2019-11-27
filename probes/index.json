@@ -21,18 +21,8 @@
     },
     "finish": {
       "text": "finish.md"
-    },
-    "assets": {
-      "host01": [
-        {"file": "../complete/Dockerfile", "target": "~/"},
-        {"file": "../complete/pom.xml", "target": "~/"},
-        {"file": "../complete/src", "target": "~/src"}
-      ]
     }
   },
-  "files": [
-    "Dockerfile", "pom.xml", "src/main/java/com/example/demo/DemoApplication.java"
-  ],
   "environment": {
     "uilayout": "editor-terminal",
     "showdashboard": true,
