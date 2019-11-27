@@ -1,4 +1,6 @@
 
+> NOTE: A Kubernetes cluster will start for you in the terminal on the right (if you are on a phone or a small device, rotate it to landscape to see the terminal). When the prompt appears you can proceed with the tutorial.
+
 The first thing we will do is create a Spring Boot application. If you have one you prefer to use already in github, you could clone it in the terminal (`git` and `java` are installed already). Or you can create an application from scratch using start.spring.io:
 
 `curl https://start.spring.io/starter.tgz -d dependencies=webflux,actuator | tar -xzvf -`{{execute}}
