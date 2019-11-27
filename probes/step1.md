@@ -13,30 +13,33 @@ Open the `demo/pom.xml`{{open}} in the editor and add the actuator dependency:
 &lt;/dependency>
 </code></pre>
 
-In the terminal, pop into the `demo` director with `cd demo`{{execute}}. Build the app `./mvnw package`{{execute}} and create a new `Dockerfile`:
+In the terminal, pop into the `demo` director with `cd demo`{{execute}}. Build the app `./mvnw package`{{execute}}:
 
-<pre><code class="execute">cat > Dockerfile << EOF
-FROM openjdk:8-jdk-alpine AS builder
-WORKDIR target/dependency
-ARG APPJAR=target/*.jar
-COPY \${APPJAR} app.jar
-RUN jar -xf ./app.jar
+```
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< com.example:demo >--------------------------
+[INFO] Building demo 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+...
 
-FROM openjdk:8-jre-alpine
-VOLUME /tmp
-ARG DEPENDENCY=target/dependency
-COPY --from=builder \${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=builder \${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=builder \${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.demo.DemoApplication"]
-EOF
-</code></pre>
+...
+[INFO] Replacing main artifact with repackaged archive
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  40.807 s
+[INFO] Finished at: 2019-11-27T14:00:53Z
+[INFO] ------------------------------------------------------------------------
+```
 
-Build the container:
+And build the container:
 
 `docker build -t localhost/springguides/demo .`{{execute}}
 
-> NOTE: There is a Docker (v2) registry running on `localhost`  port 80, just to make the tutorial work smoothly, and so you don't have to authenticate to Dockerhub. If you prefer to use Dockerhub just remove `localhost/` from the container labels (or insert another registry host instead of `localhost`).You can test that the container is working:
+> NOTE: There is a Docker (v2) registry running on `localhost`  port 80, just to make the tutorial work smoothly, and so you don't have to authenticate to Dockerhub. If you prefer to use Dockerhub just remove `localhost/` from the container labels (or insert another registry host instead of `localhost`).
+
+You can test that the container is working:
 
 `docker run -p 8080:8080 localhost/springguides/demo`{{execute}}
 
