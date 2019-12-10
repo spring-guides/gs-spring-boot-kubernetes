@@ -11,7 +11,7 @@ Get ready to deploy by killing the local container:
 
 `echo "Send Ctrl+C to kill the container"`{{execute T1 interrupt}}
 
-== Deploy to Kubernetes
+## Deploy to Kubernetes
 
 So, you have a container that runs and exposes port 8080, so all you need to make Kubernetes run it is some YAML. To avoid having to look at or edit YAML, for now, you can ask `kubectl` to generate it for you. The only thing that might vary here is the `--image` name. If you deployed your container to your own repository, use its tag instead of this one:
 
