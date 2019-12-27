@@ -48,13 +48,9 @@ service/kubernetes   ClusterIP   10.43.0.1    <none>        443/TCP   7m13s
 
 == Create a Spring Boot Application
 
-The first thing we will do is create a Spring Boot application. If you have one you prefer to use already in github, you could clone it in the terminal (`git` and `java` are installed already). Or you can create an application from scratch using start.spring.io:
+The first thing we will do is create a Spring Boot application. If you have one you prefer to use already in github, you could clone it in the terminal (`git` and `java` are installed already). Or you can create an application from scratch using https://start.spring.io. To do so, choose the "`Spring Reactive Web`" and "`Spring Boot Actuator`" dependencies.
 
-```
-curl https://start.spring.io/starter.tgz -d dependencies=webflux,actuator | tar -xzvf -
-```
-
-You can then build the application: 
+You can then build the application:
 
 ```
 ./mvnw install
@@ -114,7 +110,7 @@ To complete this step, send Ctrl+C to kill the application.
 
 == Containerize the Application
 
-There are multiple options for containerizing a Spring Boot application. For local development and testing it makes sense to start with a Dockerfile as the docker build workflow is generally well known and understood.  
+There are multiple options for containerizing a Spring Boot application. For local development and testing it makes sense to start with a Dockerfile as the docker build workflow is generally well known and understood.
 
 NOTE: If you don't have `docker` locally or want to automatically push an image to a registry then https://github.com/GoogleContainerTools/jib[Jib] would be a good choice. In an enterprise setting, when you need a trusted build service for a CI/CD pipeline, you could look at https://buildpacks.io/[Cloud Native Buildpacks].
 
