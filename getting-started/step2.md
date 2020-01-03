@@ -18,7 +18,7 @@ ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.demo.DemoApplication"]
 EOF
 </code></pre>
 
-Then build the container image, giving it a tag (choose your own ID instead of "springguides" if you are going to push to Dockerhub):
+Then build the container image, giving it a tag (choose your own ID instead of "localhost/springguides" if you are going to push to Dockerhub):
 
 `docker build -t localhost/springguides/demo .`{{execute}}
 
@@ -56,7 +56,7 @@ Finish off by killing the container:
 
 `echo "Send Ctrl+C to kill the container"`{{execute T1 interrupt}}
 
-> NOTE: In this tutorial environment, you will be able to push the image even though you did not authenticate with Dockerhub (`docker login`). If you are running locally you can change the image label and push to Dockerhub, or there's an image there already that should work.
+> NOTE: In this tutorial environment, you will be able to push the image even though you did not authenticate with Dockerhub (`docker login`). If you are running locally you can change the image label and push to Dockerhub, or there's an image `springguides/demo` already there that should work if you want to skip this step.
 
 `docker push localhost/springguides/demo`{{execute}}
 
