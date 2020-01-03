@@ -60,4 +60,4 @@ Finish off by killing the container:
 
 `docker push localhost/springguides/demo`{{execute}}
 
-The image needs to be pushed to Dockerhub (or some other accessible registry) because Kubernetes pulls the image from inside its Kubelets (nodes), which are not in general connected to the local docker daemon.
+The image needs to be pushed to an accessible registry because Kubernetes pulls the image from inside its Kubelets (nodes), which are not in general connected to the local docker daemon.
