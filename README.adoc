@@ -116,7 +116,7 @@ To complete this step, send Ctrl+C to kill the application.
 
 There are multiple options for containerizing a Spring Boot application. For local development and testing it makes sense to start with a Dockerfile as the docker build workflow is generally well known and understood.  
 
-NOTE: If you don't have `docker` locally or want to automatically push an image to a registry then https://github.com/GoogleContainerTools/jib[Jib] would be a good choice. In an enterprise setting, when you need a trusted build service for a CI/CD pipeline, you could look at https://buildpacks.io/[Cloud Native Buildpacks].
+NOTE: If you don't have `docker` locally or want to automatically push an image to a registry then Spring Boot Maven or Gradle plugins would be a good choice. They use https://buildpacks.io/[Cloud Native Buildpacks], and can easily be automated in an enterprise setting, when you need a trusted build service for a CI/CD pipeline.
 
 First create a `Dockerfile`:
 
