@@ -114,38 +114,22 @@ To complete this step, send Ctrl+C to kill the application.
 
 == Containerize the Application
 
-There are multiple options for containerizing a Spring Boot application. For local development and testing it makes sense to start with a Dockerfile as the docker build workflow is generally well known and understood.  
-
-NOTE: If you don't have `docker` locally or want to automatically push an image to a registry then Spring Boot Maven or Gradle plugins would be a good choice. They use https://buildpacks.io/[Cloud Native Buildpacks], and can easily be automated in an enterprise setting, when you need a trusted build service for a CI/CD pipeline.
-
-First create a `Dockerfile`:
+There are multiple options for containerizing a Spring Boot application. As long as you are already building a Spring Boot jar file, you only need to call the plugin directly. With https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/maven-plugin/html/#build-image[Maven]:
 
 ```
-FROM openjdk:8-jdk-alpine AS builder
-WORKDIR target/dependency
-ARG APPJAR=target/*.jar
-COPY ${APPJAR} app.jar
-RUN jar -xf ./app.jar
-
-FROM openjdk:8-jre-alpine
-VOLUME /tmp
-ARG DEPENDENCY=target/dependency
-COPY --from=builder ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=builder ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=builder ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.demo.DemoApplication"]
+$ ./mvnw spring-boot:build-image
 ```
 
-Then build the container image, giving it a tag (choose your own ID instead of "springguides" if you are going to push to Dockerhub):
+and with https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/gradle-plugin/reference/html/#build-image[Gradle]
 
 ```
-$ docker build -t springguides/demo .
+$ ./gradlew bootBuildImage
 ```
 
 You can run the container locally:
 
 ```
-$ docker run -p 8080:8080 springguides/demo
+$ docker run -p 8080:8080 demo:0.0.1-SNAPSHOT
 ```
 
 and check that it works in another terminal:
@@ -159,12 +143,13 @@ Finish off by killing the container.
 You won't be able to push the image unless you authenticate with Dockerhub (`docker login`), but there's an image there already that should work. If you were authenticated you could:
 
 ```
+$ docker tag demo:0.0.1-SNAPSHOT springguides/demo
 $ docker push springguides/demo
 ```
 
 In real life the image needs to be pushed to Dockerhub (or some other accessible repository) because Kubernetes pulls the image from inside its Kubelets (nodes), which are not in general connected to the local docker daemon. For the purposes of this scenario you can omit the push and just use the image that is already there.
 
-NOTE: Just for testing, there are workarounds that make `docker push` work with an insecure local registry, for instance, but that is out of scope for this scenario.
+NOTE: Just for testing, there are workarounds that make `docker push` work with an insecure local registry, for instance, but that is out of scope for this guide.
 
 == Deploy the Application to Kubernetes
 
