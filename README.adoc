@@ -4,31 +4,41 @@
 :icons: font
 :source-highlighter: prettify
 
-This guide walks you through the process of deploying a Spring Boot application on https://kubernetes.io[Kubernetes]. There are many choices of how to do things with Spring Boot and Kubernetes -- the intention with this guide is to get you up and running as quickly as possible, not to discuss all the alternatives or go into all the details of how you get to production (which is, of course, our favourite place to be).
+This guide walks you through the process of deploying a Spring Boot application on https://kubernetes.io[Kubernetes].
+You can choose from many ways to do things with Spring Boot and Kubernetes.
+The intention of this guide is to get you going as quickly as possible, not to discuss all the alternatives or go into all the details of how you get to production.
 
 [NOTE]
 ====
-There are some interactive tutorials that complement and extend the content of this guide on https://katacoda.com/springguides[Katacoda/springguides]. If you follow those tutorials, all the code will be running in the cloud from your browser. Or you can create your own cluster and install all the tools you need locally, then copy paste from the guides.
+There are some interactive tutorials that complement and extend the content of this guide on https://katacoda.com/springguides[Katacoda/springguides].
+If you follow those tutorials, all the code will be running in the cloud from your browser.
+Alternatively, you can create your own cluster, install all the tools you need locally, and copy-paste from the guides.
 
-* https://www.katacoda.com/springguides/scenarios/getting-started[Getting Started with Spring Boot on Kubernetes]: the same material as this guide, but running in your browser.
+* https://www.katacoda.com/springguides/scenarios/getting-started[Getting Started with Spring Boot on Kubernetes]: The same material as this guide, but running in your browser.
 
-* https://www.katacoda.com/springguides/scenarios/install-kubernetes[Install Kubernetes]: a guide to installing Kubernetes locally using https://github.com/kubernetes-sigs/kind[Kind]. You can use this to get setup on your laptop if you prefer to run the tutorials there.
+* https://www.katacoda.com/springguides/scenarios/install-kubernetes[Install Kubernetes]: A guide to installing Kubernetes locally by using https://github.com/kubernetes-sigs/kind[Kind].
+You can use it to get setup on your laptop if you prefer to run the tutorials there.
 
-* https://www.katacoda.com/springguides/scenarios/probes[Kubernetes Probes with Spring Boot]: a guide to liveness and readiness probes with Spring Boot.
+* https://www.katacoda.com/springguides/scenarios/probes[Kubernetes Probes with Spring Boot]: A guide to liveness and readiness probes with Spring Boot.
 
 ====
 
-== What you'll build
+== What You Will Build
 
-https://kubernetes.io[Kubernetes] is an open-source system for automating deployment, scaling, and management of containerized applications. It groups containers that make up an application into logical units for easy management and discovery. In this guide we will build and deploy a simple Spring boot application.
+https://kubernetes.io[Kubernetes] is an open-source system for automating the deployment, scaling, and management of containerized applications.
+It groups containers that make up an application into logical units for easy management and discovery. In this guide, we build and deploy a simple Spring boot application.
 
-NOTE: There is also a https://spring.io/guides/gs/spring-boot-docker[Getting Started Guide] and a https://spring.io/guides/topicals/spring-boot-docker[Topical Guide] on Docker, which cover some of the background on building a container image.
+NOTE: You can also find a https://spring.io/guides/gs/spring-boot-docker[Getting Started Guide] and a https://spring.io/guides/topicals/spring-boot-docker[Topical Guide] on Docker, which cover some of the background on building a container image.
 
-== What you'll need
-:java_version: 1.8
+== What You Will Need
+
 You will need a Linux or Linux-like command line. Command line examples in this guide work on Linux, a MacOS terminal with a shell, or https://docs.microsoft.com/en-us/windows/wsl[WSL] on Windows.
 
-You will also need a Kubernetes cluster and the command line tool https://kubernetes.io/docs/tasks/tools/install-kubectl/[Kubectl]. You can create a cluster locally using https://github.com/kubernetes-sigs/kind[Kind] (on Docker) or https://github.com/kubernetes/minikube[Minikube]. Or you can use a cloud provider, such as https://console.cloud.google.com/kubernetes/[Google Cloud Platform], https://aws.amazon.com/eks/[Amazon Web Services] or https://azure.microsoft.com/en-gb/services/kubernetes-service/[Microsoft Azure]. Before proceeding further, verify you can run `kubectl` commands from the shell. E.g. (using `kind`):
+You will also need a Kubernetes cluster and the command line tool https://kubernetes.io/docs/tasks/tools/install-kubectl/[Kubectl].
+You can create a cluster locally by using https://github.com/kubernetes-sigs/kind[Kind] (on Docker) or https://github.com/kubernetes/minikube[Minikube].
+Alternatively, you can use a cloud provider, such as https://console.cloud.google.com/kubernetes/[Google Cloud Platform], https://aws.amazon.com/eks/[Amazon Web Services], or https://azure.microsoft.com/en-gb/services/kubernetes-service/[Microsoft Azure].
+Before proceeding further, verify that you can run `kubectl` commands from the shell.
+The following example uses `kind`:
 
 ```
 $ kubectl cluster-info
@@ -38,7 +48,7 @@ KubeDNS is running at https://127.0.0.1:46253/api/v1/namespaces/kube-system/serv
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
-and
+You should also run the following command:
 
 ```
 $ kubectl get all
@@ -48,21 +58,23 @@ service/kubernetes   ClusterIP   10.43.0.1    <none>        443/TCP   7m13s
 
 == Create a Spring Boot Application
 
-The first thing we will do is create a Spring Boot application. If you have one you prefer to use already in github, you could clone it in the terminal (`git` and `java` are installed already). Or you can create an application from scratch using start.spring.io:
+First, we create a Spring Boot application.
+If you have one you prefer to use already in github, you could clone it in the terminal (`git` and `java` are installed already).
+Alternatively, you can create an application from scratch by using start.spring.io:
 
 ```
 curl https://start.spring.io/starter.tgz -d dependencies=webflux,actuator | tar -xzvf -
 ```
 
-You can then build the application: 
+You can then build the application:
 
 ```
 ./mvnw install
 ```
 
-NOTE: It will take a couple of minutes the first time, but then once the dependencies are all cached it will be fast.
+NOTE: It will take a couple of minutes the first time, but, once the dependencies are all cached, it will be fast.
 
-And you can see the result of the build. If the build was successful, you should see a JAR file, something like this:
+Then you can see the result of the build. If the build was successful, you should see a JAR file similar to the following:
 
 ```
 ls -l target/*.jar
@@ -75,7 +87,8 @@ The JAR is executable:
 $ java -jar target/*.jar
 ```
 
-The app has some built in HTTP endpoints by virtue of the "actuator" dependency we added when we downloaded the project. So you will see something like this in the logs on startup:
+The applicaiton has some built-in HTTP endpoints because of the `actuator` dependency we added when we downloaded the project.
+You should see output similar to the following in the logs on startup:
 
 ```
 ...
@@ -84,7 +97,7 @@ The app has some built in HTTP endpoints by virtue of the "actuator" dependency 
 ...
 ```
 
-So you can curl the endpoints in another terminal:
+Then you can curl the endpoints in another terminal:
 
 ```
 $ curl localhost:8080/actuator | jq .
@@ -110,17 +123,19 @@ $ curl localhost:8080/actuator | jq .
 }
 ```
 
-To complete this step, send Ctrl+C to kill the application.
+To complete this step, press Ctrl+C to stop the application.
 
 == Containerize the Application
 
-There are multiple options for containerizing a Spring Boot application. As long as you are already building a Spring Boot jar file, you only need to call the plugin directly. With https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/maven-plugin/html/#build-image[Maven]:
+There are multiple options for containerizing a Spring Boot application.
+As long as you are already building a Spring Boot jar file, you only need to call the plugin directly.
+The following command uses https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/maven-plugin/html/#build-image[Maven]:
 
 ```
 $ ./mvnw spring-boot:build-image
 ```
 
-and with https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/gradle-plugin/reference/html/#build-image[Gradle]
+The following command uses https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/gradle-plugin/reference/html/#build-image[Gradle]:
 
 ```
 $ ./gradlew bootBuildImage
@@ -132,28 +147,33 @@ You can run the container locally:
 $ docker run -p 8080:8080 demo:0.0.1-SNAPSHOT
 ```
 
-and check that it works in another terminal:
+Then you can check that it works in another terminal:
 
 ```
 $ curl localhost:8080/actuator/health
 ```
 
-Finish off by killing the container.
+Finish by stopping the container.
 
-You won't be able to push the image unless you authenticate with Dockerhub (`docker login`), but there's an image there already that should work. If you were authenticated you could:
+You cannot push the image unless you authenticate with Dockerhub (`docker login`), but there is already an image there that should work.
+If you were authenticated, you could:
 
 ```
 $ docker tag demo:0.0.1-SNAPSHOT springguides/demo
 $ docker push springguides/demo
 ```
 
-In real life the image needs to be pushed to Dockerhub (or some other accessible repository) because Kubernetes pulls the image from inside its Kubelets (nodes), which are not in general connected to the local docker daemon. For the purposes of this scenario you can omit the push and just use the image that is already there.
+In real life, the image needs to be pushed to Dockerhub (or some other accessible repository) because Kubernetes pulls the image from inside its Kubelets (nodes), which are not usually connected to the local docker daemon.
+For the purposes of this scenario, you can omit the push and use the image that is already there.
 
-NOTE: Just for testing, there are workarounds that make `docker push` work with an insecure local registry, for instance, but that is out of scope for this guide.
+NOTE: For testing, there are workarounds that make `docker push` work with an insecure local registry (for instance) but that is out of scope for this guide.
 
 == Deploy the Application to Kubernetes
 
-You have a container that runs and exposes port 8080, so all you need to make Kubernetes run it is some YAML. To avoid having to look at or edit YAML, for now, you can ask `kubectl` to generate it for you. The only thing that might vary here is the `--image` name. If you deployed your container to your own repository, use its tag instead of this one:
+Now you have a container that runs and exposes port 8080, so all you need to make Kubernetes run it is some YAML.
+To avoid having to look at or edit YAML, for now, you can ask `kubectl` to generate it for you.
+The only thing that might vary here is the `--image` name.
+If you deployed your container to your own repository, use its tag instead of this one:
 
 ```
 $ kubectl create deployment demo --image=springguides/demo --dry-run -o=yaml > deployment.yaml
@@ -161,7 +181,7 @@ $ echo --- >> deployment.yaml
 $ kubectl create service clusterip demo --tcp=8080:8080 --dry-run -o=yaml >> deployment.yaml
 ```
 
-You can take the YAML generated above and edit it if you like, or you can just apply it:
+You can take the YAML generated above and edit it if you like, or you can apply it as is:
 
 ```
 $ kubectl apply -f deployment.yaml
@@ -188,15 +208,16 @@ replicaset.apps/demo-658b7f4997   1         1         1         21h
 d
 ```
 
-TIP: Keep doing `kubectl get all` until the demo pod shows its status as "Running".
+TIP: Repeat `kubectl get all` until the demo pod shows its status as `Running`.
 
-Now you need to be able to connect to the application, which you have exposed as a Service in Kubernetes. One way to do that, which works great at development time, is to create an SSH tunnel:
+Now you need to be able to connect to the application, which you have exposed as a Service in Kubernetes.
+One way to do that, which works great at development time, is to create an SSH tunnel:
 
 ```
 $ kubectl port-forward svc/demo 8080:8080
 ```
 
-then you can verify that the app is running in another terminal:
+Then you can verify that the app is running in another terminal:
 
 ```
 $ curl localhost:8080/actuator/health
