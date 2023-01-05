@@ -9,6 +9,7 @@ You can choose from many ways to do things with Spring Boot and Kubernetes.
 The intention of this guide is to get you going as quickly as possible, not to discuss all the alternatives or go into all the details of how you get to production.
 
 [NOTE]
+katacoda.com no longer support for public use
 ====
 There are some interactive tutorials that complement and extend the content of this guide on https://katacoda.com/springguides[Katacoda/springguides].
 If you follow those tutorials, all the code will be running in the cloud from your browser.
