@@ -8,21 +8,6 @@ This guide walks you through the process of deploying a Spring Boot application 
 You can choose from many ways to do things with Spring Boot and Kubernetes.
 The intention of this guide is to get you going as quickly as possible, not to discuss all the alternatives or go into all the details of how you get to production.
 
-[NOTE]
-====
-There are some interactive tutorials that complement and extend the content of this guide on https://katacoda.com/springguides[Katacoda/springguides].
-If you follow those tutorials, all the code will be running in the cloud from your browser.
-Alternatively, you can create your own cluster, install all the tools you need locally, and copy-paste from the guides.
-
-* https://www.katacoda.com/springguides/scenarios/getting-started[Getting Started with Spring Boot on Kubernetes]: The same material as this guide, but running in your browser.
-
-* https://www.katacoda.com/springguides/scenarios/install-kubernetes[Install Kubernetes]: A guide to installing Kubernetes locally by using https://github.com/kubernetes-sigs/kind[Kind].
-You can use it to get setup on your laptop if you prefer to run the tutorials there.
-
-* https://www.katacoda.com/springguides/scenarios/probes[Kubernetes Probes with Spring Boot]: A guide to liveness and readiness probes with Spring Boot.
-
-====
-
 == What You Will Build
 
 https://kubernetes.io[Kubernetes] is an open-source system for automating the deployment, scaling, and management of containerized applications.

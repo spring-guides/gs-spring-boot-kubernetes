@@ -10,4 +10,4 @@ We also don't cover all the options available for building containers. There is 
 
 When it comes to deploying the application to Kubernetes, there are far too many options to cover them all in one tutorial. We can look at one or two, but the emphasis will be on getting something working as quickly as possible, not on how to deploy to a production cluster.
 
-Source code for this guide is in [Github](https://github.com/spring-guides/gs-spring-boot-kubernetes/tree/main/probes). It is deployed in [Katacoda](https://www.katacoda.com/springguides/scenarios/probes) where you can run the code interactively in your browser.
+Source code for this guide is in [Github](https://github.com/spring-guides/gs-spring-boot-kubernetes/tree/main/probes).
