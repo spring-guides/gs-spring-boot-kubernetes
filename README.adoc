@@ -48,7 +48,7 @@ If you have one you prefer to use already in github, you could clone it in the t
 Alternatively, you can create an application from scratch by using start.spring.io:
 
 ```
-curl https://start.spring.io/starter.tgz -d dependencies=webflux,actuator | tar -xzvf -
+curl https://start.spring.io/starter.tgz -d dependencies=webflux,actuator -d type=maven-project | tar -xzvf -
 ```
 
 You can then build the application:
